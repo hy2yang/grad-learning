@@ -101,6 +101,37 @@
 
 2. Organise a career fair(Suppose you are the organiser)
 
+	Organizer
+	data: name, organization
+	actions: invite, schedule, search, inform
+
+	Facility
+	data: address, avaliability, capacity
+	actions:
+
+	Employer
+	data: name
+	actions: 
+
+	Student
+	data: name, id,
+	actions: register, cancel
+
+	Organizer X
+	Employer[] PotentialEmployers
+	Student[] students
+	Facility[] sites
+
+	X.search (sites)-> Facility[] AvaliableSites
+	for Employer i in PotentialEmployers
+		X.invite (i, X.organization) 
+		if i agree
+			X.add(i, Employer[] PresentingEmployers)
+	X.schedule (AvaliableSites, PresentingEmployers) -> CareerFairTime, CareerFairSites
+	X.inform (PresentingEmployers, students, CareerFairTime, CareerFairSites)
+	X.invite (students)-> RegisteredStudents
+
+
 3. Order Pizza from Pizza Hut
 
 4. Design a code sharing platform (eg: Github).
