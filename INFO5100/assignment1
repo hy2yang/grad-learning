@@ -97,8 +97,6 @@
 		Rhotel.checkin (DaveAndFriends, BookedRooms)	
 	DaveAndFriends.walk(BookedRooms)
 	DaveAndFriends.sleep
-
-  
  
 
 2. Organise a career fair(Suppose you are the organiser)
