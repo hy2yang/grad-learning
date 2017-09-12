@@ -1,0 +1,110 @@
+1. Hiking
+ 1.1. Rent a ReachNow to drive to mountain rainier on weekends with friends
+ 1.2. On the way, fill the gas
+ 1.3. On the way, eat at restaurant for lunch
+ 1.4. Buy the ticket to get into the park
+ 1.5. Book a hotel or check in the hotel.
+ 
+ 1.
+	CarRental
+	data: Name, cars[] AvaliableCars
+	actions: authorize, display
+
+	Renter
+	data: Name, Account, Position, Route, Payment
+	actions: login, search, order, unlock, drive, walk
+
+	RentOrder
+	data: renter, StartTime, EndTime
+	actions:
+
+	Car
+	data: Number, Position, Availability, Pin
+	actions
+
+	GasStation
+	data: price
+	action: fuel, charge
+
+	Restaurant
+	data: food[] menu, price
+	action: receive, serve
+
+	TicketOffice
+	data: price
+	action: sell, check
+
+	Hotel
+	data: room[] AvaliableRooms, price
+	action: check, receive
+
+ 1.1
+	CarRental ReachNow
+	Renter Dave
+	Car RentbyDave
+
+	Dave.login (ReachNow, Account)->Authorize
+	If (Authorize is true):
+		ReachNow.DisplayAvaliableCarsNearby (Dave.position)->AvaliableCars
+		Dave.PutOrder (RentbyDave, payment, ReachNow)-> dave'sOrder
+		ReachNow.ReceiveOrder (dave'sOrder)-> RentbyDave.Number, RentbyDave.Pin
+		Dave.unlockthecar (RentbyDave, RentbyDave.Pin)
+		Dave.drive (RentbyDave, RouteToRainier)
+	else Dave.TryLoginAgain
+
+ 1.2 (continued)
+	GasStation RainierFuel
+	
+	Dave.drive (RentbyDave, ToRainierFuel)
+	RainierFuel.receive (RentbyDave)
+	Dave.PutOrder (Fuelnumber, Gallons) -> FuelOrder
+	RainierFuel.fuel (RentbyDave,FuelOrder)
+	Dave.PayforFuel (RainierFuel, FuelOrderTotal)
+
+ 1.3 (continued)
+	Restaurant BBQ
+
+	If (Dave.position = BBQ && Dave.isHungry)
+		Dave.walk (BBQ)
+		BBQ.receive(Dave)
+		DaveAndFriends.SearchMenuForDesiredDood (BBQ.menu) -> foodorder
+		BBQ.serve(DaveAndFriends, foodorder)
+		DaveAndFriends.eat
+		x=random (DaveAndFriends)
+		x.pay (payment, BBQ)
+	Dave.drive(RentbyDave, RouteToRainier)
+
+ 1.4 (continued)
+	TicketOffice RainierTicket
+
+	x=random (DaveAndFriends)
+	x.BuyTickets (RainierTicket, DaveAndFriends.length, payment) -> TicketsOrder
+	RainierTicket.sell (TicketsOrder) -> tickets
+	If ( RainierTicket.check (DaveAndFriends, tickets) )
+		DaveAndFriends.Hike
+
+ 1.5 (continued)
+	Hotel Rhotel
+
+	Dave.drive (RentbyDave, RouteToRhotel)
+	Rhotel.receive(DaveAndFriends)
+	Rhotel.checkfororder
+	If Rhotel.FindOrder (DaveAndFriendsHotelOrder)
+		Rhotel.checkin (DaveAndFriends, BookedRooms)
+	else 
+		DaveAndFriends.SearchforRoom(AvaliableRooms)-> DesiredRooms
+		DaveAndFriends.order (Rhotel, DesiredRooms, payment)
+		Rhotel.checkin (DaveAndFriends, BookedRooms)	
+	DaveAndFriends.walk(BookedRooms)
+	DaveAndFriends.sleep
+
+  
+ 
+
+2. Organise a career fair(Suppose you are the organiser)
+
+3. Order Pizza from Pizza Hut
+
+4. Design a code sharing platform (eg: Github).
+
+5. Design a soft-drink/snacks vending machine.
