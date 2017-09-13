@@ -133,7 +133,78 @@
 
 
 3. Order Pizza from Pizza Hut
+	Shop
+	data: address, tel, menu, deliveryman[] delivery
+	actions: bake, answer, suggest, arrange
+
+	Customer
+	data: address, tel, payment
+	actions: call, order, receive, pay
+
+	Deliveryman
+	data: id
+	actions: take, deliver, receive, ride
+
+	Shop PizzaHut
+	Customer Dave
+	Deliveryman Peter
+
+	Dave.call(PizzaHut.tel) -> isBusy
+	If (!isBusy)
+		PizzaHut.answer
+		Dave.order(PizzaHut.menu)-> Dave'sOrder
+
+		do 
+			PizzaHut.suggest(PizzaHut.menu)-> suggestion
+			Dave.order(PizzaHut.menu, suggestion)-> Dave'sOrder
+		while (Dave'sOrder is not avaliable)
+		
+		PizzaHut.bake(Dave'sOrder)-> Dave'sPizza
+		PizzaHut.arrange(delivery)-> Peter
+		Peter.take(Dave'sPizza)
+		Peter.deliver(Dave'sPizza)
+		If Dave.receive(Dave'sPizza)
+			Peter.receive( Dave.pay(Dave'sOrder, Peter) )
+		Peter.ride(PizzaHut.address)
+	else Dave.callLater(PizzaHut.tel)		
 
 4. Design a code sharing platform (eg: Github).
+	Platform
+	data: URL, user[] users, rules
+	actions: authorize, receive, excute, store, check, warn
 
+	User
+	data: id, password
+	actions: open, login, command, browse
+
+	Platform CodeHub
+	User A,B
+
+	A.open(CodeHub.URL)
+	A.login (CodeHub. A.id, A.password)
+	CodeHub.authorize(A.id, A.password)-> loginstatus
+	if (loginstatus == success)
+		A.command ( create/upload/commit/delete/changesettings, CodeFile ) -> commandline
+		CodeHub.receive (commandline)
+		CodeHub.CheckifHasThePermission (A, commandline, rules) -> permission
+		If permission is true
+			CodeHub.excute (commandline, CodeFile)
+		else CodeHub.warn (A, "you have no permission")
+	else
+		A.CantLoginNow
+
+	B.open(CodeHub.URL)
+	B.login (CodeHub. B.id, B.password)
+	CodeHub.authorize(B.id, B.password)-> loginstatus
+	if (loginstatus == success)
+		B.browse (CodeHub.user[A].files)
+		B.command ( pull/comment/fork/) -> commandline
+		CodeHub.receive (commandline)
+		CodeHub.CheckifHasThePermission (B, commandline, rules) -> permission
+		If permission is true
+			CodeHub.excute (commandline)
+		else CodeHub.warn (B, "you have no permission")
+	else
+		B.CantLoginNow
+		
 5. Design a soft-drink/snacks vending machine.
