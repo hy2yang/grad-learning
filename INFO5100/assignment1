@@ -198,13 +198,42 @@
 	CodeHub.authorize(B.id, B.password)-> loginstatus
 	if (loginstatus == success)
 		B.browse (CodeHub.user[A].files)
-		B.command ( pull/comment/fork/) -> commandline
+		B.command ( pull/comment/fork/branch, CodeFile) -> commandline
 		CodeHub.receive (commandline)
 		CodeHub.CheckifHasThePermission (B, commandline, rules) -> permission
 		If permission is true
-			CodeHub.excute (commandline)
+			CodeHub.excute (commandline, CodeFile)
 		else CodeHub.warn (B, "you have no permission")
 	else
 		B.CantLoginNow
+
 		
 5. Design a soft-drink/snacks vending machine.
+	VendingMachine
+	data: snack[] snacklist, int[] inventory, float[] prices, TotalPaid
+	actions: receive, check, prompt, change, release
+	
+	Buyer
+	data: cash
+	actions: select, pay
+
+	VendingMachine SnackMachine
+	Buyer Dave
+
+	Dave.select (chocolate) -> order
+	SnackMachine.receive (order)
+	SnackMachine.check (inventory[order]) -> storage
+	if storage>0
+		SnackMachine.prompt( prices[order] )
+		SnackMachine.TotalPaid=0
+	else
+		SnackMachine.prompt(OutOfInventoryWarning)
+	do
+		Dave.pay(cash, SnackMachine)
+		SnackMachine.addTotalPaid(cash) 
+	while (SnackMachine.TotalPaid < prices[order] )
+
+	If (SnackMachine.TotalPaid > prices[order])
+		SnackMachine.giveChange (SnackMachine.TotalPaid - prices[order] )
+	SnackMachine.release(order)
+
