@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 
 public class assignment2 {
 
@@ -5,6 +7,7 @@ public class assignment2 {
 		System.out.println(employeeSalary(48));
 		System.out.println(addDigits(376));
 		printPerfectNumbers(497);
+		printIsoscelesTriangle(6);
 	}
 	
 
@@ -50,20 +53,61 @@ ii. For example: 6 is the first perfect number, Proper divisors of 6 are 1, 2, 3
 	        n--;
 	        sum=0;
 	    }while (n>1);
+	    System.out.print(System.lineSeparator());
 	}
 	
 /*	4. Write a java class called pizza with (Add detail as needed) : 
         i. Create atleast 3 attributes :pizza type , unit price and loyalty points. More attributes are welcome to have. 
-        ii. Create constructors . Extra-credit of 0.5 point if you write more than 1 right constructor to this class
+        ii. Create constructors . Extra-credit of 0.5 point if you write more than 1 right constructor to this class*/
+	public class pizza{
+	    String pizza_type;
+	    float price;
+	    int loyalty_points;
+	    
+	    public pizza(String type, float p, int lp){
+	        this.pizza_type=type;
+	        this.price=p;
+	        this.loyalty_points=lp;	        
+	    }
+	    
+	    public pizza(String type, float p){
+            this.pizza_type=type;
+            this.price=p;
+            this.loyalty_points=(int) (100*p);   // assume you loyalty points as 100 times the price of the pizza
+        }
+	    
+	    public pizza(String type, int lp){
+            this.pizza_type=type;
+            this.price=(float) (lp/100.0);  // assume you loyalty points as 100 times the price of the pizza
+            this.loyalty_points=lp;         
+        }
+	}
 
- 5. Write a java class called customer (Add detail as needed) : 
+/*5. Write a java class called customer (Add detail as needed) : 
         i. Create Attributes: customer name and which pizzas customer has ordered. 
         ii. Think about what kind of data structure can be used to record the pizza name and number of each kind of pizza.( Give me your thought, Extra credit of 1 point)
-        iii. In main method , sum up how much money the customer spent. 
+        iii. In main method , sum up how much money the customer spent.*/
+	public class customer{
+	    String name;
+	    Map<pizza, Integer> orders;
+	    
+	    public customer(String str){
+	        this.name=str;
+	        orders= new HashMap<pizza, Integer>();
+	    }
+	    
+	    public float main() {
+	        float sum=0;
+	        for (pizza pizza : orders.keySet()) {
+	            sum+=pizza.price*orders.get(pizza);
+	        } 
+	        return sum;
+	    }
+	    
+	}
 
 
-
-// EXTRA CREDIT
+/*EXTRA CREDIT
 6. Write a Java program that generates an isosceles right angled triangle made of asterisks. 
   i. function should take input of one equal side as integer. Other than the edges the inner part of the triangle should be empty.
   ii. For example input is 6. the function should print—
@@ -75,15 +119,22 @@ ii. For example: 6 is the first perfect number, Proper divisors of 6 are 1, 2, 3
  *   *
  ******
 
- Here is the prototype you can work with
+ Here is the prototype you can work with*/
 
-  public void printIsoscelesTriangle( int n){
-  
-  *
-  *
-  *
+  public static void printIsoscelesTriangle(int n){
+      String a="*";
+      System.out.println(a);
+      String b="";
+      for (int i=1;i<n-1;i++) {          
+          System.out.println(a+b+a);
+          b+=" ";
+      }
+      for (int i=0;i<n;i++) {
+          System.out.print("*");
+      }
+      
   }
-	*/
+	
 	    
 	
 }
