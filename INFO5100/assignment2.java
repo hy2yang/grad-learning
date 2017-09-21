@@ -7,7 +7,7 @@ public class assignment2 {
 		System.out.println(employeeSalary(48));
 		System.out.println(addDigits(376));
 		printPerfectNumbers(497);
-		printIsoscelesTriangle(6);
+		printIsoscelesTriangle(1);
 	}
 	
 
@@ -135,9 +135,11 @@ ii. For example: 6 is the first perfect number, Proper divisors of 6 are 1, 2, 3
           System.out.println(a+b+a);
           b+=" ";
       }
-      for (int i=0;i<n;i++) {
-          System.out.print("*");
-      }
+      if (n>1){
+          for (int i=0;i<n;i++) {
+              System.out.print("*");
+          }
+      }      
       
   }
 	
