@@ -7,7 +7,7 @@ public class assignment2 {
 		System.out.println(employeeSalary(48));
 		System.out.println(addDigits(376));
 		printPerfectNumbers(497);
-		printIsoscelesTriangle(6);
+		printIsoscelesTriangle(1);
 	}
 	
 
@@ -17,11 +17,17 @@ ii.  The first 36 hours worked are paid at a rate of 15.0,
 then the next 5 hours are paid at a rate of 15 * 1.5. Hours after that up to a max of 48 are paid at a rate of 15 * 2.*/
 		
 	public static double employeeSalary(double hours){
-	    if (hours <0 || hours >48) throw new IllegalArgumentException();
-	    if (hours <=36) return hours*15;
-	    if (hours>36){
-	        if (hours-36 <=5) return 36*15+(hours-36)*15*1.5;
-	        else return 36*15+5*15*1.5+(hours-41)*30;
+	    int hourcap=48;
+	    int stage1=36;
+	    int stage2=36+5;
+	    double salary_s1=15;
+	    double salary_s2=salary_s1*1.5;
+	    double salary_s3=30;
+	    if (hours <0 || hours >hourcap) throw new IllegalArgumentException();
+	    if (hours <= stage1) return hours*salary_s1;
+	    if (hours > stage1){
+	        if (hours<=stage2) return stage1*salary_s1+(hours-stage1)*salary_s2;
+	        else return stage1*salary_s1+5*salary_s2+(hours-41)*salary_s3;
 	    }
 	    return 0;
 	}
@@ -110,7 +116,7 @@ ii. For example: 6 is the first perfect number, Proper divisors of 6 are 1, 2, 3
 /*EXTRA CREDIT
 6. Write a Java program that generates an isosceles right angled triangle made of asterisks. 
   i. function should take input of one equal side as integer. Other than the edges the inner part of the triangle should be empty.
-  ii. For example input is 6. the function should print—
+  ii. For example input is 6. the function should print鈥�
   
  *
  **
@@ -129,9 +135,11 @@ ii. For example: 6 is the first perfect number, Proper divisors of 6 are 1, 2, 3
           System.out.println(a+b+a);
           b+=" ";
       }
-      for (int i=0;i<n;i++) {
-          System.out.print("*");
-      }
+      if (n>1){
+          for (int i=0;i<n;i++) {
+              System.out.print("*");
+          }
+      }      
       
   }
 	
