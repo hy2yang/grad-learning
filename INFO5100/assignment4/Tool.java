@@ -1,3 +1,4 @@
+package assignment4;
 
 public class Tool {
     
@@ -15,6 +16,14 @@ public class Tool {
         System.out.println("s5 "+s5.fight(r2)+" "+s5.fight(r5)+" "+s5.fight(s2)+" "+s5.fight(s5)+" "+s5.fight(p2)+" "+s5.fight(p5)+" ");
         System.out.println("p2 "+p2.fight(r2)+" "+p2.fight(r5)+" "+p2.fight(s2)+" "+p2.fight(s5)+" "+p2.fight(p2)+" "+p2.fight(p5)+" ");
         System.out.println("p5 "+p5.fight(r2)+" "+p5.fight(r5)+" "+p5.fight(s2)+" "+p5.fight(s5)+" "+p5.fight(p2)+" "+p5.fight(p5)+" ");
+        
+        System.out.println();
+        Scissors s = new Scissors(5);
+        Paper p = new Paper(7);
+        Rock r = new Rock(15);
+        System.out.println(s.fight(p) + " , "+ p.fight(s) );
+        System.out.println(p.fight(r) + " , "+ r.fight(p) );
+        System.out.println(r.fight(s) + " , "+ s.fight(r) );
 
     }
     
@@ -74,6 +83,7 @@ public class Tool {
         }
     }
 
-
 }
+
+
 
