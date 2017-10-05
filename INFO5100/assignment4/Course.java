@@ -8,6 +8,7 @@ class Course {
     public Course (String n) {
         this.name=n;
         this.numberOfStudent=0;
+        this.students=new Student[10];
     }
     
     public String getName() {
@@ -31,9 +32,14 @@ class Course {
     }
     
     public void registerStudent (Student student) {
-        if (!this.isFull()){
-            this.students[numberOfStudent]=student;
+        if (this.isFull()) {
+            System.out.println("class is full, sorry "+student.getName());
+            return;
+        }
+        else{
+            this.students[this.getNumberOfStudent()]=student;
             this.numberOfStudent++;
+            System.out.println(student.getName()+" is registered to course "+this.getName());
         }
     }
 

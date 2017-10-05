@@ -2,7 +2,7 @@ package assignment4;
 
 class IntToRoman {
     public static void main(String args[]){
-        System.out.println(intToRoman(3974));
+        System.out.println(intToRoman(40));
     }
     
     public static String intToRoman(int num) {
@@ -29,17 +29,22 @@ class IntToRoman {
         
         copy%=100;
         if (copy>=50) {
-            result.append("L");
-            while (copy-50>=10) {
-                result.append("X");
-                copy-=10;
+            if (copy>=90) {
+                result.append("XC");
+                copy-=90;
             }
-            copy-=50;
-        }
-        else {
-            result.append("X");
-            if (copy/10==4) {
+            else {
                 result.append("L");
+                while (copy-50>=10) {
+                    result.append("X");
+                    copy-=10;
+                }
+                copy-=50;
+            }
+        }
+        else if(copy>9){
+            if (copy/10==4) {
+                result.append("XL");
                 copy%=10;
             }
             else {
@@ -52,11 +57,11 @@ class IntToRoman {
         String ones="";
         switch (copy) {
         case 9: ones="IX";break;
-        case 8: ones="XIII";break;
-        case 7: ones="XII";break;
-        case 6: ones="XI";break;
-        case 5: ones="X";break;
-        case 4: ones="IX";break;
+        case 8: ones="VIII";break;
+        case 7: ones="VII";break;
+        case 6: ones="VI";break;
+        case 5: ones="V";break;
+        case 4: ones="IV";break;
         case 3: ones="III";break;
         case 2: ones="II";break;
         case 1: ones="I";break;
