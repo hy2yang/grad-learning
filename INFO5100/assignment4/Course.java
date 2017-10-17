@@ -34,6 +34,7 @@ class Course {
     public void registerStudent (Student student) {
         if (this.isFull()) {
             System.out.println("class is full, sorry "+student.getName());
+            
             return;
         }
         else{
