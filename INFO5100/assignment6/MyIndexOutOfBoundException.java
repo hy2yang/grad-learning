@@ -2,6 +2,10 @@ package assignment6;
 
 public class MyIndexOutOfBoundException extends IndexOutOfBoundsException {
     
+    /**
+     * no idea about the serialVersionUID 
+     */
+    private static final long serialVersionUID = 1L;
     private int lb,ub,i;
     
     public MyIndexOutOfBoundException() {
