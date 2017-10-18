@@ -1,7 +1,5 @@
 package assignment4;
 
-import java.util.Arrays;
-
 public class FindMedianSortedArrays {
 
     public static void main(String[] args) {

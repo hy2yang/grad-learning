@@ -9,6 +9,7 @@ public class Hangman {
     private ArrayList<Character> correctList;
     private ArrayList<Character> wrongList;
     private ArrayList<String> graph;
+    private static Scanner sc=new Scanner(System.in);
     
     
     public Hangman(ArrayList<String> words){
@@ -228,7 +229,6 @@ public class Hangman {
     
     public void handleGuess(){ 
         System.out.println("Guess a letter from the word");
-        Scanner sc=new Scanner(System.in);
         //sc.useDelimiter("");        
         while (true) {
             char next=sc.next().charAt(0);
@@ -270,8 +270,9 @@ public class Hangman {
         if (gameWon()) System.out.println("You win!");
         else System.out.println("You lose! The word is \""+target+"\"");
         System.out.println("press ENTER to exit hangman");
-        Scanner sc=new Scanner(System.in);
-        String line = sc.nextLine();
+        sc.nextLine();
+        sc.nextLine();
+        sc.close();
         clearscreen();
         System.exit(0);
     }
