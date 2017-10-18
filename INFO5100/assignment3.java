@@ -15,9 +15,12 @@ public class assignment3 {
 //1. error in "public setName": if it's to set name, it should be void and set this.name=name;
 //   if it's a constructor with only name argument, the method name should be Book and set this.name=name;
 //   if it's to get name of a book, it should be string and return this.name
+                         // 2 constructors taking an int as input!!! DUPLICATE //////
+    
     
 // Issue is missing return type
 //2. in both methods the "time" can not be reolved since the code did not specify, should be this.time
+    //  void String getTime(){}
     
     //3.
     static String removeVowelsFromString(String input) {
@@ -33,16 +36,19 @@ public class assignment3 {
     //4.
     static boolean checkIfTwoStringsAreAnagrams(String s1, String s2) {
         // Please search the difference between "==" and ".equals()"
-        if (s1==s2) return false;
+        if (s1.equals(s2)) return false;        // here the value, not referance should be check if equal
         char[] c1=s1.toCharArray();
         char[] c2=s2.toCharArray();
         Arrays.sort(c1);
         Arrays.sort(c2);
-        for (char c:c1) {
+        /*for (char c:c1) {
             // Consider test case "aaacc" and "aaccc" they are not anagrams but will pass your check
             if (s2.indexOf(c)<0) return false;
-        }
-        return true;
+        }*/
+        // did not consider dupliacte letters
+        
+        if (c1.equals(c2)) return true;   // if two sorted arrays are equal in value, the original words are either same or anagrams,
+        return false;                     // if same, already returned false in line 39, so they can only be anagrams
     }
     
     //5.
@@ -151,6 +157,7 @@ public class assignment3 {
         
         // extra
         public double[] solveQuadratic(double a,double b,double c) {
+            if (a==0 && b==0) return null;
             double[] result=new double[2];
             if (b*b-4*a*c<0) {
                 System.out.println("no real root");
@@ -158,9 +165,16 @@ public class assignment3 {
             }
             double s=Math.sqrt(b*b-4*a*c);
             // What if a == 0?
-            result[0]=(s-b)/(2*a);
-            result[1]=(-s-b)/(2*a);
-            System.out.println("roots are "+result[0]+" and "+result[1]);
+            if (a == 0) {        
+                result[0]=-(c/b);
+                System.out.println("roots is "+result[0]);
+            }
+            else {
+                result[0]=(s-b)/(2*a);
+                result[1]=(-s-b)/(2*a);
+                System.out.println("roots are "+result[0]+" and "+result[1]);
+            }
+            
             return result;
         }
         
