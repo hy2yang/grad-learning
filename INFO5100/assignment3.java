@@ -11,10 +11,12 @@ public class assignment3 {
         c1.solveQuadratic(1, 0, -49);
     }
 
+// Another issue is constructor duplication
 //1. error in "public setName": if it's to set name, it should be void and set this.name=name;
 //   if it's a constructor with only name argument, the method name should be Book and set this.name=name;
 //   if it's to get name of a book, it should be string and return this.name
     
+// Issue is missing return type
 //2. in both methods the "time" can not be reolved since the code did not specify, should be this.time
     
     //3.
@@ -30,12 +32,14 @@ public class assignment3 {
     
     //4.
     static boolean checkIfTwoStringsAreAnagrams(String s1, String s2) {
+        // Please search the difference between "==" and ".equals()"
         if (s1==s2) return false;
         char[] c1=s1.toCharArray();
         char[] c2=s2.toCharArray();
         Arrays.sort(c1);
         Arrays.sort(c2);
         for (char c:c1) {
+            // Consider test case "aaacc" and "aaccc" they are not anagrams but will pass your check
             if (s2.indexOf(c)<0) return false;
         }
         return true;
@@ -153,6 +157,7 @@ public class assignment3 {
                 return result;
             }
             double s=Math.sqrt(b*b-4*a*c);
+            // What if a == 0?
             result[0]=(s-b)/(2*a);
             result[1]=(-s-b)/(2*a);
             System.out.println("roots are "+result[0]+" and "+result[1]);
