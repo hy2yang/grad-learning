@@ -28,7 +28,8 @@ public class q5 {
         int x=wip.get(wip.size()-1).x;
         int y=wip.get(wip.size()-1).y;
         if (x==maze.length-1 && y==maze[0].length-1) {
-            res.addAll(wip);
+            if (!res.isEmpty()) res.add(null);          // use null to seperate different routes
+            res.addAll(wip);                                                                       
             return;
         }
         if ( (x<maze.length-1 && maze[x+1][y]==1) ) {   // can go down 
@@ -45,7 +46,7 @@ public class q5 {
     }
     
     public static void main(String[] args) {
-        int[][] a= {{1,0,0,0},{1,1,1,1},{0,1,0,0},{1,1,1,1}};
+        int[][] a= {{1,0,0,0},{1,1,1,1},{0,1,1,0},{1,1,1,1}};
         System.out.println(findPath(a));
     }
     
