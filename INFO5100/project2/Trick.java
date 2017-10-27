@@ -28,7 +28,7 @@ public class Trick extends GroupOfCards {
     }
     
     private boolean isWinner(Card c) {
-        if (!winningCard.equals(null)) {
+        if (winningCard!=null) {
             if (c.getSuit()!=winningCard.getSuit() || c.getNum()<winningCard.getNum()) return false;
         }
         return true;

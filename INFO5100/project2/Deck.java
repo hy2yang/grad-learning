@@ -15,8 +15,9 @@ public class Deck extends GroupOfCards{
     
     public void shuffle() {
         int unshuffled=super.getCurrentSize();
-        for (int i=unshuffled;i>0;--i) {
-            int x=(int) Math.rint(Math.random()*52.0);
+        int i=unshuffled;
+        for (;i>0;--i) {
+            int x=(int) Math.rint(Math.random()*i);
             super.addCard(super.removeCard(x));
         }
     }

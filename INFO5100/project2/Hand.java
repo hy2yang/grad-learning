@@ -12,7 +12,7 @@ public class Hand extends GroupOfCards {
     
     public void sort() {
         int unsorted=super.getCurrentSize();
-        for (int i=unsorted;i>1;--i) {
+        for (int i=unsorted;i>0;--i) {
             int max=0;
             for (int j=0;j<i;j++) {
                 if (super.getCards()[j].getValue()>super.getCards()[max].getValue()) max=j;
@@ -45,6 +45,10 @@ public class Hand extends GroupOfCards {
         }
         if (diamonds<=clubs) shortest=1;
         if (spades<=Math.min(diamonds, clubs) && !spadeQKA) shortest=3;
+    }
+    
+    public Card playACard(Game game, Trick trick) {
+        return this.getCards()[0];
     }
     
     
