@@ -23,11 +23,11 @@ public class GroupOfCards {
     }
     
     public Card removeCard(int i) {
-        Card res=cards[i];
+        Card res=cards[i]; 
         --currentSize;
-        for (int j=i;j<currentSize;j++) {
+        for (int j=i;j<currentSize;++j) {
             cards[j]=cards[j+1];
-        }
+        }        
         return res;
     }
     

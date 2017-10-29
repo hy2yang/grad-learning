@@ -32,6 +32,14 @@ public class Game {
         tricks=new Trick[ncards];
     }
     
+    public void updateHeartsAndQueen(Card c) {
+        if (!hearts && c.getSuit()==2) {
+            hearts=true;
+            System.out.println("Hearts is now broken");
+        }
+        if (c.getNum()==12 && c.getSuit()==3) queenOfSpades=true;
+    }
+    
     public void playAGame() {
         deck=new Deck();
         deck.shuffle();
@@ -50,55 +58,82 @@ public class Game {
         
         int playerNum=0;
         for (int i=0;i<PLAYERS;i++) {
-            //String header = String.format("%10s%\n",);
             System.out.printf("%10s%s\n"," ","player "+i+" shortest "+hands[i].getShortest());
             hands[i].display();
             if (i>0 && hands[i].getCards()[52/PLAYERS-1].getSuit()==0) {
                 if(hands[i].getCards()[52/PLAYERS-1].getNum()<hands[i-1].getCards()[52/PLAYERS-1].getNum()) playerNum=i;
             }
             System.out.println();
-        }        
+        }  
         
-        for (int i=0;i<tricks.length;++i) {
-            tricks[i]=new Trick(PLAYERS);
-            ++numberOfTricks;
-            Card card;
-            int j=playerNum;
-            
-            do {
-                if (i==0 && j==playerNum) {
-                    card=hands[j].getCards()[52/PLAYERS-1];
-                    hands[j].removeCard(52/PLAYERS-1);                    
-                }
-                else {
-                    card=hands[j].playACard(this, tricks[i]);
-                }
-                tricks[i].update(j, card);
-                showPlay(j,card);
-                j=(j+1)%PLAYERS;
+        System.out.println();
+        tricks[0]=new Trick(PLAYERS+cardsLeft);
+        ++numberOfTricks;
+        Card card;
+        int j=playerNum;
+        do {
+            if (j==playerNum) {
+                card=hands[j].getCards()[52/PLAYERS-1];
+                hands[j].removeCard(52/PLAYERS-1);                    
             }
-            while (j!=playerNum);            
-            playerNum=tricks[i].getWinner();
-            
-            if (i==0) {
-                while(cardsLeft>0) {
-                    Card u=deck.dealCard();
-                    tricks[0].addCard(u);
-                    showPlay(-1,u);
-                    --cardsLeft;
-                }
+            else {
+                card=hands[j].playACard(this, tricks[0]);
             }
-            System.out.println();
+            tricks[0].addCard(card);
+            tricks[0].update(j, card);                
+            showPlay(j,card);
+            j=(j+1)%PLAYERS;
+            if (!hearts || !queenOfSpades) updateHeartsAndQueen(card);
             
         }
+        while (j!=playerNum);
+        playerNum=tricks[0].getWinner();
+        while(cardsLeft>0) {
+            Card u=deck.dealCard();
+            tricks[0].addCard(u);
+            showPlay(-1,u);
+            --cardsLeft;
+        }        
+        
+        for (int i=1;i<tricks.length;++i) {
+            System.out.println();
+            tricks[i]=new Trick(PLAYERS);
+            ++numberOfTricks;
+            for (int played=0;played<5;++played) {
+                card=hands[j].playACard(this, tricks[i]);
+                tricks[i].addCard(card);
+                tricks[i].update(j, card);                
+                showPlay(j,card);
+                j=(j+1)%PLAYERS;
+                if (!hearts || !queenOfSpades) updateHeartsAndQueen(card);
+               
+            }            
+            playerNum=tricks[i].getWinner();                        
+        }
+        
+        System.out.println();
+        for (int i=0;i<PLAYERS;++i) {
+            System.out.printf("Player %d score= %d %n", i, computPoints(i));
+        }
+        
     }
     
     private void showPlay(int playerNum, Card c) {
-        if (playerNum==-1) {
-            System.out.printf("%-15s%s%n", "undealt card",c.toString());
-            return;
+        if (playerNum==-1) System.out.printf("%-15s%s%n", "undealt card",c.toString());
+        else System.out.printf("%-15s%s %n", "player "+playerNum,c.toString());
+    }
+    
+    private int computPoints(int playerNum) {
+        int p=0;
+        for (Trick i:tricks) {
+            if (i.getWinner()!=playerNum) continue;
+            if (i.getQueen()) p+=13;
+            if (!i.getHearts()) continue;
+            for (int j=0;j<PLAYERS;++j) {
+                if (i.getCards()[j].getSuit()==2) p+=i.getCards()[j].getNum();
+            }
         }
-        else System.out.printf("%-15s%s%n", "player "+playerNum,c.toString());
+        return p;
     }
     
 
