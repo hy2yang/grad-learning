@@ -62,7 +62,6 @@ public class Hand extends GroupOfCards {
         else  {index = findHighest();}
         Card c=this.removeCard(index);
         trick.update(NUM, c);
-        g.updateHeartsAndQueen(c);
         return c;
     }
     

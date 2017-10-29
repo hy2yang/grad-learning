@@ -23,6 +23,7 @@ public class Game {
     }
     
     public Game(int nplayers) {
+        if (nplayers<3||nplayers>6) throw new IllegalArgumentException("number of players must be between 3 and 6");
         PLAYERS=nplayers;
         hands=new Hand[nplayers];
         int ncards=52/nplayers;
@@ -100,7 +101,7 @@ public class Game {
             tricks[i]=new Trick(PLAYERS);
             ++numberOfTricks;
             j=playerNum;
-            for (int played=0;played<5;++played) {
+            for (int played=0;played<PLAYERS;++played) {
                 card=hands[j].playACard(this, tricks[i]);
                 tricks[i].addCard(card);
                 tricks[i].update(j, card);                

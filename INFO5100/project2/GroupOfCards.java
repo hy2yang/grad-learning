@@ -14,7 +14,7 @@ public class GroupOfCards {
     }
     
     public GroupOfCards(int s) {
-        if (s<0||s>52) throw new IndexOutOfBoundsException("size cards must be between 0 and 52");
+        if (s<0||s>52) throw new IllegalArgumentException("size cards must be between 0 and 52");
         cards=new Card[s];
     }
     

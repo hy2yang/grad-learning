@@ -17,8 +17,8 @@ public class Card {
     }
 
     public Card (int n, int s) {
-        if (n<2||n>14) throw new IndexOutOfBoundsException("number must be between 2 and 14");
-        if (s<0||s>3) throw new IndexOutOfBoundsException("suit must be between 0 and 3");
+        if (n<2||n>14) throw new IllegalArgumentException("number must be between 2 and 14");
+        if (s<0||s>3) throw new IllegalArgumentException("suit must be between 0 and 3");
         num=n;
         suit=s;
     }
