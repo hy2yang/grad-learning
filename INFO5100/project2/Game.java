@@ -99,6 +99,7 @@ public class Game {
             System.out.println();
             tricks[i]=new Trick(PLAYERS);
             ++numberOfTricks;
+            j=playerNum;
             for (int played=0;played<5;++played) {
                 card=hands[j].playACard(this, tricks[i]);
                 tricks[i].addCard(card);
@@ -130,7 +131,7 @@ public class Game {
             if (i.getQueen()) p+=13;
             if (!i.getHearts()) continue;
             for (int j=0;j<PLAYERS;++j) {
-                if (i.getCards()[j].getSuit()==2) p+=i.getCards()[j].getNum();
+                if (i.getCards()[j].getSuit()==2) p+=1;
             }
         }
         return p;

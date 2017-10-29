@@ -27,7 +27,8 @@ public class GroupOfCards {
         --currentSize;
         for (int j=i;j<currentSize;++j) {
             cards[j]=cards[j+1];
-        }        
+        }
+        cards[currentSize]=null;
         return res;
     }
     

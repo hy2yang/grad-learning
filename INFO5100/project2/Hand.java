@@ -67,19 +67,19 @@ public class Hand extends GroupOfCards {
     }
     
     private int find(int suit, int num) {
-        int res=-1;
         for (int i=0;i<this.getCurrentSize();++i) {
-            if (this.getCards()[i].getNum()==num && this.getCards()[i].getSuit()==suit) res=i;
+            if (this.getCards()[i].getNum()==num && this.getCards()[i].getSuit()==suit) return i;
         }
-        return res;
+        return -1;
     }
     
     public int findLowest(int suit) {
         int min= Integer.MAX_VALUE;
         for (Card c:this.getCards()) {
+            if (c==null) break;
             if (c.getSuit()!=suit) continue;
             min=Math.min(min, c.getNum());
-        }
+        }        
         return min==Integer.MAX_VALUE? -1:find(suit,min);
     }
     
@@ -106,6 +106,7 @@ public class Hand extends GroupOfCards {
     private int findHighest(int suit) {
         int max= Integer.MIN_VALUE;
         for (Card c:this.getCards()) {
+            if (c==null) break;
             if (c.getSuit()!=suit) continue;
             max=Math.max(max, c.getNum());
         }
@@ -113,17 +114,21 @@ public class Hand extends GroupOfCards {
     }
     
     private int findLowest(Game g) {
-        int min=Integer.MAX_VALUE;
-        for (Card c:this.getCards()) {
-            if (!g.getHearts() && c.getSuit()==2) continue;
-            min=Math.min(min, c.getNum());
+        int min=Integer.MAX_VALUE,index=-1;;
+        for (int i=0;i<this.getCurrentSize();++i) {
+            if (!g.getHearts() && this.getCards()[i].getSuit()==2) continue;
+            if (this.getCards()[i].getNum()<min) {
+                min=this.getCards()[i].getNum();
+                index=i;
+            }
         }
-        return min==Integer.MAX_VALUE? -1:min;
+        return min==Integer.MAX_VALUE? -1:index;
     }
     
     private int findLastHigh(int suit) {
         int max= Integer.MIN_VALUE;
         for (Card c:this.getCards()) {
+            if (c==null) break;
             if (c.getSuit()!=suit) continue;
             if (c.getSuit()==3 && c.getNum()==12) continue;
             max=Math.max(max, c.getNum());
@@ -134,6 +139,7 @@ public class Hand extends GroupOfCards {
     private int findHighestBelow(Card winning) {
         int max= Integer.MIN_VALUE;
         for (Card c:this.getCards()) {
+            if (c==null) break;
             if (c.getSuit()!=winning.getSuit()) continue;
             if (c.getNum()<winning.getNum()) max=Math.max(max, c.getNum());            
         }
@@ -143,7 +149,8 @@ public class Hand extends GroupOfCards {
     private int findMiddleHigh(Game g, int suit) {
         if(suit==3 && !g.getQueenOfSpades()) return findHighestBelow(new Card(11,3));
         int max= Integer.MIN_VALUE;
-        for (Card c:this.getCards()) {            
+        for (Card c:this.getCards()) {  
+            if (c==null) break;
             if (c.getSuit()!=suit) continue;            
             max=Math.max(max, c.getNum());
         }
