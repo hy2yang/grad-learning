@@ -16,22 +16,21 @@ public class Controller extends Thread {
         double t,p;
         while (true) { 
             synchronized (device) {
-                t=heat.getValue();
-                p=pressure.getValue();
-                System.out.printf("Heat -> %.2f",t);            
-                System.out.printf(" Pressure -> %.2f\n",p);  
                 try {
                     device.wait();
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                t=heat.getValue();
+                p=pressure.getValue();
+                System.out.printf("Heat -> %.2f",t);            
+                System.out.printf("  Pressure -> %.2f\n",p);                 
                             
             }
             if (t>70 || p>100) {
                 device.shutdown();
-                heat.stop();
-                pressure.stop();
+                heat.interrupt();;
+                pressure.interrupt();
                 return;
             }
             

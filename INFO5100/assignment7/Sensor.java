@@ -19,11 +19,11 @@ class Sensor extends Thread {
     
     public void run() {
         System.out.println("Sensor started");        
-        while (true) {
-                updateValue();
-                synchronized (device) {
-                    device.notify();
-                }
+        while (!this.isInterrupted()) { 
+            updateValue();
+            synchronized (device) {
+                device.notify();
+            }
         }        
     }
 
