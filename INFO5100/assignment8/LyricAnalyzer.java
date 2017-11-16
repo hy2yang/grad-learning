@@ -23,8 +23,9 @@ public class LyricAnalyzer {
         BufferedReader br=new BufferedReader(fr);
         int pos=1;
         String line;
-        while ((line=br.readLine())!=null){
-            //if (br.readLine()==null) break;
+        while (true){
+            line=br.readLine();
+            if (line==null) break;
             String[] words=line.toUpperCase().split(" ");            
             for (int i=0;i<words.length;++i){
                 if(i==words.length-1){
