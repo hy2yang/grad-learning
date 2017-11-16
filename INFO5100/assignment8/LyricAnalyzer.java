@@ -30,9 +30,7 @@ public class LyricAnalyzer {
                 }
                 else add(line[i],pos);
                 ++pos;
-            }
-            
-            
+            }  
         }
     }
     
