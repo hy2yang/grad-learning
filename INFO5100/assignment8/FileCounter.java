@@ -27,7 +27,7 @@ public class FileCounter {
             wordCount+=line.split(" ").length;
             characterCount+=line.length();
         }
-        in.close();
+        //in.close();
     }
 
     public int getCharacterCount() {

@@ -16,6 +16,7 @@ public class FileAnalyzer
       Scanner fileIn = new Scanner(reader);
       counter.read(fileIn);
       fileIn.close();
+      //in.close();
       System.out.println("Characters: " + counter.getCharacterCount());
       System.out.println("Words: " + counter.getWordCount());
       System.out.println("Lines : " + counter.getLineCount());
