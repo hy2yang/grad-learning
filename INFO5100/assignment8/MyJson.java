@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Year;
@@ -73,6 +74,31 @@ public class MyJson {
         ArrayList<Vehicle> vehicles = readAndGetVehicles(file);
         String s = getJsonString(vehicles);
         writeToFile(s, file.getParent());
+    }
+    
+    public static void back2original(File file) throws IOException{
+        File back=new File(file.getParent()+"/back.txt");
+        
+        FileReader fr=new FileReader(file);        
+        BufferedReader br=new BufferedReader(fr);
+        
+        FileWriter fw = new FileWriter(back);
+        PrintWriter pw = new PrintWriter(fw);
+        
+        StringBuilder sb=new StringBuilder();
+        
+        String in=br.readLine();
+        String[] temp=new String[10];
+        temp[1]=br.readLine();
+        
+        while (true){
+            in=br.readLine();
+            if (in==null) break;
+            
+            
+        }
+        
+        
     }
 
 }
