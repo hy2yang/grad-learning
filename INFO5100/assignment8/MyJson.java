@@ -20,7 +20,7 @@ public class MyJson {
         String line=br.readLine();
         while(true){
             line=br.readLine();
-            if(line==null) break;
+            if(line==null) break;            
             Vehicle cur=new Vehicle(line.split("~"));
             cars.add(cur);
         }
@@ -48,14 +48,16 @@ public class MyJson {
     private static String vehicle2Json(Vehicle c){
         String nl=System.lineSeparator();
         StringBuilder sb=new StringBuilder();
+        
         sb.append("\"id\" : \""+c.id+"\","+nl);
         sb.append("\"category\" : \""+c.category+"\","+nl);
         sb.append("\"year\" : \""+c.year+"\","+nl);
         sb.append("\"make\" : \""+c.make+"\","+nl);
         sb.append("\"model\" : \""+c.model+"\","+nl);
         sb.append("\"trim\" : \""+c.trim+"\","+nl);
-        sb.append("\"type\" : \""+c.type+"\","+nl);
-        sb.append("\"price\" : \""+c.price+"\","+nl);
+        if (c.type.isEmpty()) sb.append("\"type\" : null,"+nl);
+        else sb.append("\"type\" : \""+c.type+"\","+nl);
+        sb.append("\"price\" : "+c.price+","+nl);
         sb.append("\"photo\" : \""+c.photo+"\","+nl);
         return sb.toString();
     }
@@ -69,14 +71,16 @@ public class MyJson {
     }   
     
     
-    public static void main(String[] args) throws IOException{
-        File file = new File("INFO5100/assignment8/q3.txt");
+    public static void main(String[] args) throws IOException{  
+        File file = new File("assignment8/q3.txt");
         ArrayList<Vehicle> vehicles = readAndGetVehicles(file);
         String s = getJsonString(vehicles);
         writeToFile(s, file.getParent());
+        back2original(new File("assignment8/res.txt"));
+        
     }
     
-    public static void back2original(File file) throws IOException{
+    public static void back2original(File file) throws IOException{   //extra, defects in price section and when type==null
         File back=new File(file.getParent()+"/back.txt");
         
         FileReader fr=new FileReader(file);        
@@ -87,18 +91,33 @@ public class MyJson {
         
         StringBuilder sb=new StringBuilder();
         
+        pw.println("id~webId~category~year~make~model~trim~type~price~photo");
         String in=br.readLine();
-        String[] temp=new String[10];
-        temp[1]=br.readLine();
+        String webid=br.readLine().split("\"")[1];
         
         while (true){
             in=br.readLine();
             if (in==null) break;
-            
-            
+            if (in.contains("{")) {                
+                for (int i=0;i<10;++i) {
+                    if (i==1) sb.append(webid);
+                    else {
+                        String[] line=br.readLine().split("\"");
+                        if (line.length>3) sb.append(line[3]);
+                        else sb.append(line[2]);
+                    }
+                    if (i<9) sb.append("~");
+                }
+                continue;
+            }
+            if (in.contains("}")) {
+                pw.println(sb.toString());
+                sb.setLength(0);
+                continue;
+            }            
         }
-        
-        
+        br.close();
+        pw.close();   
     }
 
 }
