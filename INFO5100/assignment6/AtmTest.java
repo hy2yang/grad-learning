@@ -126,4 +126,4 @@ class AtmTest {
         assertEquals(current,(8751.24-10*a.transactionFee-301),0.01);  // calling the withDrawl function, therefore no test here
     }
 
-}
+} 
